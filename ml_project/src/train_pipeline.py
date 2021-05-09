@@ -1,5 +1,7 @@
 import logging
 import logging.config
+import yaml
+import json
 from sklearn.model_selection import train_test_split
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, FileType
 
@@ -19,6 +21,7 @@ PREDICT_MODE = "predict"
 ALLOWED_MODES = [DEFAULT_MODE, TRAIN_MODE, PREDICT_MODE]
 
 logger = logging.getLogger(APPLICATION_NAME)
+
 
 def setup_logging():
     with open(LOGGING_CONF_FILE) as config_fin:
@@ -62,25 +65,22 @@ def train_pipeline(params: TrainingPipelineParams, mode: str):
 
     if mode in [TRAIN_MODE, DEFAULT_MODE]:
         logger.debug("Training model")
-        model = train(X_train, y_train, params.train_params)
-        try:
-            dump_model(model, params.model_path)
+        model = train_model(X_train, y_train, params.train_params)
+        with open(params.model_path, 'w') as f:
             logger.info(f"Model dump: {params.model_path}")
-        except FileNotFoundError:
-            logger.warning(f"Can not dump model: {params.model_path}")
+            dump_model(model, f)
     else:
         logger.debug("Loading model")
-        try:
-            model = load_model(params.model_path)
+        with open(params.model_path, 'r') as f:
+            model = load_model(f)
             logger.info(f"Model uploaded with: {params.model_path}")
-        except FileNotFoundError:
-            logger.warning(f"Can not load model: {params.model_path}")
-            return None, None
-    if mode in [PREDICT_MODE, DEFAULT_MODE]:
+    if mode in [PREDICT_MODE, DEFAULT_MODE] and model is not None:
         logger.debug("Predicting")
         predictions = predict_model(model, X_test)
         metrics = evaluate_model(predictions, y_test)
         logger.debug(f"Metrics: {metrics}")
+        with open(params.metric_path, 'w') as f:
+            json.dump(metrics, f)
         return model, metrics
     else:
         return model, None
@@ -105,8 +105,6 @@ def main():
     setup_parser(parser)
     arguments = parser.parse_args()
     logger.info(arguments)
-
-    # arguments.callback
 
 
 if __name__ == "__main__":

@@ -5,10 +5,12 @@
 click
 Sphinx
 pandas
-sklearn
+scikit-learn
+scipy
 coverage
 awscli
 flake8
 marshmallow_dataclass
 pytest
-
+PyYAML
+jsonlib
