@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-import click
-import logging
 import pandas as pd
 from pathlib import Path
 from sklearn.model_selection import train_test_split
-
-from src.classes.classes import SplittingParams
+from ..classes.classes import SplittingParams
 # from dotenv import find_dotenv, load_dotenv
 
 

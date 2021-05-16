@@ -2,15 +2,12 @@
 -e .
 
 # external requirements
-click
-Sphinx
-pandas
-scikit-learn
-scipy
-coverage
-awscli
-flake8
-marshmallow_dataclass
-pytest
-PyYAML
-jsonlib
+pandas==1.2.4
+scikit-learn~=0.24.1
+scipy==1.5.4
+coverage~=5.5
+flake8~=3.9.1
+marshmallow-dataclass~=8.4.1
+pytest==6.2.1
+PyYAML==5.3.1
+jsonlib=1.6.1

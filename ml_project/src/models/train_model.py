@@ -4,7 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from typing import Union, NoReturn
 
-from src.classes.classes import LRParams, KNNParams
+from ..classes.classes import LRParams, KNNParams
 
 SklearnClassifierModel = Union[KNeighborsClassifier, LogisticRegression]
 

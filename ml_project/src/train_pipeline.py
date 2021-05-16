@@ -3,13 +3,13 @@ import logging.config
 import yaml
 import json
 from sklearn.model_selection import train_test_split
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, FileType
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
-from src.classes.classes import TrainingPipelineParams, SplittingParams, read_training_pipeline_params
-from src.data.make_dataset import load_data
-from src.features.build_features import build_features
-from src.models.train_model import train_model, dump_model, load_model
-from src.models.predict_model import predict_model, evaluate_model
+from .classes.classes import TrainingPipelineParams, SplittingParams, read_training_pipeline_params
+from .data.make_dataset import load_data
+from .features.build_features import build_features
+from .models.train_model import train_model, dump_model, load_model
+from .models.predict_model import predict_model, evaluate_model
 
 
 APPLICATION_NAME = "train_pipeline"
