@@ -1,12 +1,16 @@
 import pickle
 import pandas as pd
+import logging
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from typing import Union, NoReturn
 
 from ..classes.classes import LRParams, KNNParams
 
+APPLICATION_NAME = "train_pipeline"
+
 SklearnClassifierModel = Union[KNeighborsClassifier, LogisticRegression]
+logger = logging.getLogger(APPLICATION_NAME)
 
 
 def train_model(
@@ -35,9 +39,11 @@ def train_model(
 def dump_model(model: SklearnClassifierModel, output: str) -> NoReturn:
     with open(output, "wb") as f:
         pickle.dump(model, f)
+        logger.info(f"Model dumped at: {output}")
 
 
 def load_model(input_: str) -> SklearnClassifierModel:
     with open(input_, "rb") as f:
         model = pickle.load(f)
+        logger.info(f"Model loaded from: {input_}")
     return model

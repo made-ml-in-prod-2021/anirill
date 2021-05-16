@@ -2,6 +2,7 @@ import logging
 import logging.config
 import yaml
 import json
+git commit -# import utils
 from sklearn.model_selection import train_test_split
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
@@ -66,14 +67,15 @@ def train_pipeline(params: TrainingPipelineParams, mode: str):
     if mode in [TRAIN_MODE, DEFAULT_MODE]:
         logger.debug("Training model")
         model = train_model(X_train, y_train, params.train_params)
-        with open(params.model_path, 'w') as f:
-            logger.info(f"Model dump: {params.model_path}")
-            dump_model(model, f)
+        # with open(params.model_path, 'w') as f:
+        # logger.info(f"Model dump: {params.model_path}")
+        dump_model(model, params.model_path)
     else:
         logger.debug("Loading model")
-        with open(params.model_path, 'r') as f:
-            model = load_model(f)
-            logger.info(f"Model uploaded with: {params.model_path}")
+        # with open(params.model_path, 'r') as f:
+        # logger.info(f"Model uploaded with: {params.model_path}")
+        model = load_model(params.model_path)
+
     if mode in [PREDICT_MODE, DEFAULT_MODE] and model is not None:
         logger.debug("Predicting")
         predictions = predict_model(model, X_test)
