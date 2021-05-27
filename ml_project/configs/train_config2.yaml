@@ -1,0 +1,13 @@
+input_data_path: "../data/heart.csv"
+model_path: "../models/model.pkl"
+metric_path: "../models/metrics.json"
+splitting_params:
+  val_size: 0.2
+  random_state: 42
+train_params:
+  model_type: "RandomForestClassifier"
+  model_param:
+    n_neighbors: 9
+feature_params:
+  target_col: "target"
+
