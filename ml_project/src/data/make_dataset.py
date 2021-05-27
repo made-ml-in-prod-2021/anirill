@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from sklearn.model_selection import train_test_split
-from ..classes.classes import SplittingParams
+from ml_project.src.classes.classes import SplittingParams
 # from dotenv import find_dotenv, load_dotenv
 
 

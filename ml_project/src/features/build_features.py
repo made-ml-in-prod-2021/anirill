@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import scale
 
-from ..classes.classes import FeatureParams
+from ml_project.src.classes.classes import FeatureParams
 
 
 def build_features(df: pd.DataFrame):

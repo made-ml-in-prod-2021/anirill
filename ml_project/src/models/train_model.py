@@ -5,7 +5,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from typing import Union, NoReturn
 
-from ..classes.classes import LRParams, KNNParams
+import ml_project.src.classes as classes
+
 
 APPLICATION_NAME = "train_pipeline"
 
@@ -16,7 +17,7 @@ logger = logging.getLogger(APPLICATION_NAME)
 def train_model(
     features: pd.DataFrame,
     target: pd.Series,
-    train_params: Union[LRParams, KNNParams],
+    train_params: Union[classes.LRParams, classes.KNNParams],
 ) -> SklearnClassifierModel:
     if train_params.model_type == "RandomForestClassifier":
         model = KNeighborsClassifier(
