@@ -93,5 +93,23 @@ services:
     image: airflow-preprocess
     restart: "no"
 
+  split:
+    build:
+      context: images/airflow-split
+    image: airflow-split
+    restart: "no"
+
+  train:
+    build:
+      context: images/airflow-train
+    image: airflow-train
+    restart: "no"
+
+  validate:
+    build:
+      context: images/airflow-validate
+    image: airflow-validate
+    restart: "no"
+
 volumes:
   logs:
