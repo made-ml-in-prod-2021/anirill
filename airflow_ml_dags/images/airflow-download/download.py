@@ -11,8 +11,8 @@ def download(output_dir: str):
     X, y = load_wine(return_X_y=True, as_frame=True)
 
     os.makedirs(output_dir, exist_ok=True)
-    pd.DataFrame(X).to_csv(os.path.join(output_dir, "data.csv"))
-    pd.DataFrame(y).to_csv(os.path.join(output_dir, "target.csv"))
+    pd.DataFrame(X).to_csv(os.path.join(output_dir, "data.csv"), index=False)
+    pd.DataFrame(y).to_csv(os.path.join(output_dir, "target.csv"), index=False)
 
 
 if __name__ == '__main__':

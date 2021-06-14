@@ -7,12 +7,12 @@ import click
 @click.option("--input-dir")
 @click.option("--output-dir")
 def preprocess(input_dir: str, output_dir: str):
-    data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    print(data[:5])
+    data = pd.read_csv(os.path.join(input_dir, "data.csv"), index_col=None)
+    # print(data[:5])
     data.fillna(0)
     # data = data.drop(columns=2)  # drop bad feats
 
-    target = pd.read_csv(os.path.join(input_dir, "target.csv"))
+    target = pd.read_csv(os.path.join(input_dir, "target.csv"), index_col=None)
     target.fillna(0)
 
     os.makedirs(output_dir, exist_ok=True)

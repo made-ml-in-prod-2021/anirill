@@ -9,8 +9,8 @@ from sklearn.naive_bayes import GaussianNB
 @click.option("--input-dir")
 @click.option("--output-dir")
 def train(input_dir: str, output_dir: str):
-    data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    target = pd.read_csv(os.path.join(input_dir, "target.csv"))
+    data = pd.read_csv(os.path.join(input_dir, "data.csv"), index_col=None)
+    target = pd.read_csv(os.path.join(input_dir, "target.csv"), index_col=None)
 
     model = GaussianNB()
 
