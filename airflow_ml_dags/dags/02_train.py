@@ -8,6 +8,7 @@ from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from airflow.models import Variable
+from airflow.sensors.filesystem import FileSensor
 
 DATA_DIR = Variable.get("DATA_DIR")
 
@@ -27,6 +28,21 @@ with DAG(
     start_date=days_ago(14),
     description="Training model",
 ) as dag:
+    waiting_for_data_file = FileSensor(
+        task_id='waiting_for_data_file',
+        # filepath="/data/raw/{{ ds }}/data.csv",
+        filepath=f"{DATA_DIR}/data.csv",
+
+        poke_interval=30
+    )
+
+    waiting_for_target_file = FileSensor(
+        task_id='waiting_for_target_file',
+        # filepath="/data/raw/{{ ds }}/target.csv",
+        filepath=f"{DATA_DIR}/target.csv",
+        poke_interval=30
+    )
+
     preprocess = DockerOperator(
         image="airflow-preprocess",
         command="--input-dir /data/raw/{{ ds }} --output-dir /data/processed/{{ ds }}",
@@ -59,4 +75,4 @@ with DAG(
         volumes=[f"{DATA_DIR}:/data"]
     )
 
-    preprocess >> split >> train >> validate
+    [waiting_for_data_file, waiting_for_target_file] >> preprocess >> split >> train >> validate
