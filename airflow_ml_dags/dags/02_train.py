@@ -42,7 +42,7 @@ with DAG(
         fs_conn_id=f"{DATA_DIR}raw/{{ ds }}/target.csv",
         # fs_conn_id=DATA_DIR,
         # filepath="/data/raw/{{ ds }}/target.csv",
-        filepath="raw/{{ ds }}/target.csv",
+        # filepath="raw/{{ ds }}/target.csv",
         poke_interval=30
     )
 
