@@ -21,11 +21,11 @@ default_args = {
 }
 
 with DAG(
-    dag_id="01_download",
+    dag_id="02_download",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval="@weekly",
     start_date=days_ago(14),
-    description="Getting and data",
+    description="Training model",
 ) as dag:
     preprocess = DockerOperator(
         image="airflow-preprocess",
