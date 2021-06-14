@@ -14,10 +14,10 @@ def split(input_dir: str, output_dir):
     X_train, X_val, Y_train, Y_val = train_test_split(data, target, test_size=0.3, random_state=1)
 
     os.makedirs(output_dir, exist_ok=True)
-    X_train.to_csv(os.path.join(output_dir, "data.csv"))
-    Y_train.to_csv(os.path.join(output_dir, "target.csv"))
-    X_val.to_csv(os.path.join(output_dir, "data_val.csv"))
-    Y_val.to_csv(os.path.join(output_dir, "target_val.csv"))
+    X_train.to_csv(os.path.join(output_dir, "data.csv"), index=False)
+    Y_train.to_csv(os.path.join(output_dir, "target.csv"), index=False)
+    X_val.to_csv(os.path.join(output_dir, "data_val.csv"), index=False)
+    Y_val.to_csv(os.path.join(output_dir, "target_val.csv"), index=False)
 
 
 if __name__ == '__main__':
