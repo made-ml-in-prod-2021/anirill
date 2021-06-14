@@ -30,16 +30,17 @@ with DAG(
 ) as dag:
     waiting_for_data_file = FileSensor(
         task_id='waiting_for_data_file',
-        fs_conn_id=DATA_DIR,
+        fs_conn_id=f"{DATA_DIR}raw/{{ ds }}/data.csv",
         # filepath="/data/raw/{{ ds }}/data.csv",
-        filepath="raw/{{ ds }}/data.csv",
+        # filepath="raw/{{ ds }}/data.csv",
 
         poke_interval=30
     )
 
     waiting_for_target_file = FileSensor(
         task_id='waiting_for_target_file',
-        fs_conn_id=DATA_DIR,
+        fs_conn_id=f"{DATA_DIR}raw/{{ ds }}/target.csv",
+        # fs_conn_id=DATA_DIR,
         # filepath="/data/raw/{{ ds }}/target.csv",
         filepath="raw/{{ ds }}/target.csv",
         poke_interval=30
