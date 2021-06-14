@@ -10,7 +10,8 @@ from airflow.utils.dates import days_ago
 from airflow.models import Variable
 
 DATA_DIR = Variable.get("DATA_DIR")
-# MODEL_DIR = Variable.get("MODEL_DIR")
+MODEL_DIR = Variable.get("MODEL_DIR")
+
 
 # These args will get passed on to each operator
 # You can override them on a per-task basis during operator initialization
@@ -18,7 +19,7 @@ default_args = {
     "owner": "airflow",
     "email": ["airflow@example.com"],
     "retries": 1,
-    "retry_delay": timedelta(minutes=5),
+    "retry_delay": timedelta(minutes=2),
 }
 
 with DAG(
@@ -38,11 +39,13 @@ with DAG(
 
     predict = DockerOperator(
         image="airflow-predict",
-        command="--input-dir /data/processed/{{ ds }} --models-dir /data/models/{{ ds }}",
+        command="--input-dir /data/processed/{{ ds }} "
+                "--output-dir /data/predicted/{{ ds }} "                
+                # "--models-dir /data/models/{{ ds }}",
+                f"--models-dir {MODEL_DIR}",
         task_id="docker-airflow-predict",
         do_xcom_push=False,
         volumes=[f"{DATA_DIR}:/data"]
     )
-
 
     preprocess >> predict
