@@ -6,9 +6,10 @@ import click
 @click.command("preprocess")
 @click.option("--input-dir")
 @click.option("--output-dir")
-def preprocess(input_dir: str, output_dir):
+def preprocess(input_dir: str, output_dir: str):
     data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    data = data.drop(columns=2)  # drop bad feats
+    print(data[:5])
+    # data = data.drop(columns=2)  # drop bad feats
 
     target = pd.read_csv(os.path.join(input_dir, "target.csv"))
 
