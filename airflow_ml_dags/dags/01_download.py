@@ -29,7 +29,7 @@ with DAG(
 ) as dag:
     download = DockerOperator(
         image="airflow-download",
-        command="--output-dir /data/raw/{{ ds }}",
+        command="/data/raw/{{ ds }}",
         network_mode="bridge",
         task_id="docker-airflow-download",
         do_xcom_push=False,
