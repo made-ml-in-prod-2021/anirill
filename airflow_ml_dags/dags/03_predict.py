@@ -9,8 +9,10 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from airflow.models import Variable
 
-DATA_DIR = Variable.get("DATA_DIR")
-MODEL_DIR = Variable.get("MODEL_DIR")
+DATA_DIR = Variable.get("DATA_DIR", default_var="/home/andrew/ml_prod/hw3/anirill/airflow_ml_dags/data")
+MODEL_DIR = Variable.get("MODEL_DIR",
+                         default_var="/home/andrew/ml_prod/hw3/anirill/airflow_ml_dags/data/models/2021-06-06"
+                         )
 
 
 # These args will get passed on to each operator
@@ -42,6 +44,7 @@ with DAG(
         command="--input-dir /data/processed/{{ ds }} "
                 "--output-dir /data/predicted/{{ ds }} "                
                 # "--models-dir /data/models/{{ ds }}",
+                # "--models-dir /data/models/2021-06-06",
                 f"--models-dir {MODEL_DIR}",
         task_id="docker-airflow-predict",
         do_xcom_push=False,

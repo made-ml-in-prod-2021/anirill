@@ -40,7 +40,6 @@ services:
       args:
         AIRFLOW_BASE_IMAGE: *airflow_image
     image: airflow-docker
-
     restart: always
     depends_on:
       - postgres
