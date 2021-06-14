@@ -17,7 +17,7 @@ def train(input_dir: str, output_dir: str):
     model.fit(data, target)
 
     os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "target.csv"), "wb") as f:
+    with open(os.path.join(output_dir, "model.pkl"), "wb") as f:
         pickle.dump(model, f)
 
 
