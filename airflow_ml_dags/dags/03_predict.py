@@ -43,12 +43,12 @@ with DAG(
         image="airflow-predict",
         command="--input-dir /data/processed/{{ ds }} "
                 "--output-dir /data/predicted/{{ ds }} "                
-                # "--models-dir /data/models/{{ ds }}",
+                "--models-dir /model",
                 # "--models-dir /data/models/2021-06-06",
-                f"--models-dir {MODEL_DIR}",
+                # f"--models-dir {MODEL_DIR}",
         task_id="docker-airflow-predict",
         do_xcom_push=False,
-        volumes=[f"{DATA_DIR}:/data"]
+        volumes=[f"{DATA_DIR}:/data", f"{MODEL_DIR}:/model"]
     )
 
     preprocess >> predict
