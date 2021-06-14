@@ -1,21 +1,25 @@
 import os
+import pickle
 import pandas as pd
 import click
+from sklearn.naive_bayes import GaussianNB
 
 
-@click.command("preprocess")
+@click.command("train")
 @click.option("--input-dir")
 @click.option("--output-dir")
-def preprocess(input_dir: str, output_dir):
+def train(input_dir: str, output_dir: str):
     data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    data = data.drop(columns=2)  # drop bad feats
-
     target = pd.read_csv(os.path.join(input_dir, "target.csv"))
 
+    model = GaussianNB()
+
+    model.fit(data, target)
+
     os.makedirs(output_dir, exist_ok=True)
-    data.to_csv(os.path.join(output_dir, "data.csv"))
-    target.to_csv(os.path.join(output_dir, "target.csv"))
+    with open(os.path.join(output_dir, "target.csv"), "wb") as f:
+        pickle.dump(model, f)
 
 
 if __name__ == '__main__':
-    preprocess()
+    train()
