@@ -19,7 +19,7 @@ def validate(input_dir: str, models_dir: str):
     score = dict()
     score['score'] = model.score(data, target)
 
-    with open(os.path.join(models_dir, "score.json"), "wb") as f:
+    with open(os.path.join(models_dir, "score.json"), "w") as f:
         json.dump(score, f)
 
 
