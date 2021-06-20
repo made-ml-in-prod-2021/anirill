@@ -12,7 +12,7 @@ if __name__ == "__main__":
         ]
         print(request_data)
         response = requests.get(
-            "http://3.127.229.49/predict/",
+            "http://35.239.0.193/predict/",
             json={"data": [request_data], "features": request_features},
         )
         print(response.status_code)
