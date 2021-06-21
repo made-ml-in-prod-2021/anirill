@@ -73,6 +73,11 @@ def health() -> bool:
     return not (model is None)
 
 
+@app.get("/ready")
+def readiness() -> bool:
+    return not (model is None)
+
+
 @app.get("/predict/", response_model=List[PriceResponse])
 def predict(request: HousePricesModel):
     return make_predict(request.data, request.features, model)
