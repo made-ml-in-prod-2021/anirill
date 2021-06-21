@@ -64,7 +64,8 @@ def load_model():
         raise RuntimeError(err)
     model = load_object(model_path)
     time.sleep(90)
-    raise OSError("Application stop")
+    # raise OSError("Application stop")
+    model = None
 
 
 @app.get("/healthz")
