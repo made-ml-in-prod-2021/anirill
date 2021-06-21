@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fastapi-ml
 spec:
-  replicas: 2
+  replicas: 8
   selector:
     matchLabels:
       app: fastapi-ml
@@ -16,7 +16,7 @@ spec:
         app: fastapi-ml
     spec:
       containers:
-        - image: anirill/online_inference:v3
+        - image: anirill/online_inference:v1
           name: fastapi-ml
           ports:
             - containerPort: 8000
