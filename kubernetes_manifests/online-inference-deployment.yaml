@@ -9,8 +9,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 4
-      maxUnavailable: 2
+      maxSurge: 8
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: fastapi-ml
