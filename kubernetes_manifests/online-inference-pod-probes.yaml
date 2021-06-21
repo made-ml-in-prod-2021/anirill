@@ -6,7 +6,7 @@ metadata:
     app: online-inference
 spec:
   containers:
-    - name: probes
+    - name: pod-probes
       image: anirill/online_inference:v2
       ports:
         - containerPort: 8000
@@ -20,8 +20,5 @@ spec:
         httpGet:
           path: /healthz
           port: 8000
-          httpHeaders:
-          - name: Custom-Header
-            value: Awesome
         initialDelaySeconds: 30
         periodSeconds: 3
