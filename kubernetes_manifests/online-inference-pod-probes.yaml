@@ -3,10 +3,10 @@ kind: Pod
 metadata:
   name: pod-probes
   labels:
-    app: online-inference
+    app: fastapi-ml
 spec:
   containers:
-    - name: pod-probes
+    - name: fastapi-ml
       image: anirill/online_inference:v2
       ports:
         - containerPort: 8000
