@@ -1,6 +1,7 @@
 import logging
 import os
 import pickle
+import time
 from typing import List, Union, Optional
 
 import numpy as np
@@ -55,12 +56,14 @@ def main():
 @app.on_event("startup")
 def load_model():
     global model
+    time.sleep(30)
     model_path = os.getenv("PATH_TO_MODEL")
     if model_path is None:
         err = f"PATH_TO_MODEL {model_path} is None"
         logger.error(err)
         raise RuntimeError(err)
-
+    time.sleep(90)
+    raise OSError("Application stop")
     model = load_object(model_path)
 
 
