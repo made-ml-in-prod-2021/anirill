@@ -21,7 +21,7 @@ spec:
         app: fastapi-ml
     spec:
       containers:
-        - image: anirill/online_inference:v1
+        - image: anirill/online_inference:v3
           name: fastapi-ml
           ports:
             - containerPort: 8000
