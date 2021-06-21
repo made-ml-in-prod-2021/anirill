@@ -7,6 +7,7 @@ metadata:
 spec:
   containers:
     - name: fastapi-ml
+      imagePullPolicy: "Always"
       image: anirill/online_inference:v2
       ports:
         - containerPort: 8000
