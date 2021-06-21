@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel, conlist
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +32,8 @@ class PriceResponse(BaseModel):
 
 
 model: Optional[Pipeline] = None
+start_time: Optional[datetime] = None
+WORK_TIME = 100
 
 
 def make_predict(
@@ -56,6 +59,7 @@ def main():
 @app.on_event("startup")
 def load_model():
     global model
+    global start_time
     time.sleep(30)
     model_path = os.getenv("PATH_TO_MODEL")
     if model_path is None:
@@ -63,18 +67,17 @@ def load_model():
         logger.error(err)
         raise RuntimeError(err)
     model = load_object(model_path)
-    time.sleep(90)
+    # time.sleep(90)
     # raise OSError("Application stop")
-    model = None
+    start_time = datetime.now()
 
 
 @app.get("/healthz")
 def health() -> bool:
-    return not (model is None)
-
-
-@app.get("/ready")
-def readiness() -> bool:
+    if start_time is None:
+        raise Exception("Early")
+    if (datetime.now() - start_time).seconds > WORK_TIME:
+        raise Exception("Late")
     return not (model is None)
 
 

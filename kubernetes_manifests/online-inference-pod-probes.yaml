@@ -13,7 +13,7 @@ spec:
         - containerPort: 8000
       readinessProbe:
         httpGet:
-          path: /ready
+          path: /healthz
           port: 8000
         initialDelaySeconds: 5
         periodSeconds: 3
