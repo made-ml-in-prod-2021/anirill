@@ -62,12 +62,12 @@ def load_model():
         err = f"PATH_TO_MODEL {model_path} is None"
         logger.error(err)
         raise RuntimeError(err)
+    model = load_object(model_path)
     time.sleep(90)
     raise OSError("Application stop")
-    model = load_object(model_path)
 
 
-@app.get("/healz")
+@app.get("/healthz")
 def health() -> bool:
     return not (model is None)
 
